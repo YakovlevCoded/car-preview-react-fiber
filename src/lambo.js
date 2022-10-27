@@ -1,6 +1,6 @@
 import * as THREE from "three";
-import { useMemo } from "react";
-import { applyProps } from "@react-three/fiber";
+import { useMemo, useRef } from "react";
+import { applyProps, useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 
 /*
@@ -12,11 +12,16 @@ Title: Lamborghini Urus
 export function Lamborghini(props) {
   const { scene, nodes, materials } = useGLTF("/card_deck.glb");
 
-  useMemo(() => {
-    // ⬇⬇⬇ All this is probably better fixed in Blender ...
-    Object.values(nodes).forEach((node) => {
-      console.log(node);
-    });
-  }, [nodes, materials]);
-  return <primitive object={scene} {...props} />;
+  const reference = useRef();
+  useFrame((state, delta) => {
+    reference.current.rotation.y += 0.01;
+  });
+
+  // useMemo(() => {
+  //   // ⬇⬇⬇ All this is probably better fixed in Blender ...
+  //   Object.values(nodes).forEach((node) => {
+  //     console.log(node);
+  //   });
+  // }, [nodes, materials]);
+  return <primitive ref={reference} object={scene} {...props} />;
 }
