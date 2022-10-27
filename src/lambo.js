@@ -15,7 +15,7 @@ export function Lamborghini(props) {
   const reference = useRef();
 
   useFrame((state, delta) => {
-    reference.current.rotation.y += 0.01;
+    reference.current.rotation.y += delta;
   });
   // rewrite yellow to black
   //   useMemo(() => {
