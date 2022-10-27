@@ -55,8 +55,8 @@ createRoot(document.getElementById("root")).render(
       <Stats />
       <color attach="background" args={["#15151a"]} />
       <hemisphereLight intensity={0.5} />
-      <Box position={[-1, 3, 0]} />
-      <Box position={[1.2, 3, 0]} />
+      {/* <Box position={[-1, 3, 0]} />
+      <Box position={[1.2, 3, 0]} /> */}
       <mesh
         scale={4}
         position={[3, -1.161, -1.5]}
@@ -73,7 +73,7 @@ createRoot(document.getElementById("root")).render(
         <ringGeometry args={[0.9, 1, 3, 1]} />
         <meshStandardMaterial color="white" roughness={0.75} />
       </mesh>
-      <Lamborghini rotation={[0, Math.PI / 1.5, 0]} position={[0, -0.8, 0]} />
+      <Lamborghini />
       <ContactShadows
         resolution={1024}
         frames={1}
@@ -150,10 +150,10 @@ createRoot(document.getElementById("root")).render(
           onUpdate={(self) => self.lookAt(0, 0, 0)}
         />
       </Environment>
-      <Effects />
+      {/* <Effects /> */}
       <OrbitControls
-        minPolarAngle={Math.PI / 2.2}
-        maxPolarAngle={Math.PI / 2.2}
+      // minPolarAngle={Math.PI / 2.2}
+      // maxPolarAngle={Math.PI / 2.2}
       />
     </Canvas>
   </Suspense>

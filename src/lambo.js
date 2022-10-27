@@ -10,13 +10,13 @@ Source: https://sketchfab.com/3d-models/lamborghini-urus-2650599973b649ddb4460ff
 Title: Lamborghini Urus
 */
 export function Lamborghini(props) {
-  const { scene, nodes, materials } = useGLTF("/bmw_f22_eurofighter.glb");
-  // rewrite yellow to black
-  //   useMemo(() => {
-  //     // ⬇⬇⬇ All this is probably better fixed in Blender ...
-  //     Object.values(nodes).forEach((node) => {
-  //       console.log(node);
-  //     });
-  //   }, [nodes, materials]);
+  const { scene, nodes, materials } = useGLTF("/card_deck.glb");
+
+  useMemo(() => {
+    // ⬇⬇⬇ All this is probably better fixed in Blender ...
+    Object.values(nodes).forEach((node) => {
+      console.log(node);
+    });
+  }, [nodes, materials]);
   return <primitive object={scene} {...props} />;
 }
