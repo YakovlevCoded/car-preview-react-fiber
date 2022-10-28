@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import { applyProps, useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 
@@ -10,11 +10,14 @@ Source: https://sketchfab.com/3d-models/lamborghini-urus-2650599973b649ddb4460ff
 Title: Lamborghini Urus
 */
 export function Lamborghini(props) {
-  const { scene, nodes, materials } = useGLTF("/card_deck.glb");
-
   const reference = useRef();
+  const [active, setActive] = useState(false);
+  const [hovered, setHover] = useState(false);
+  const sc = useGLTF("/2.glb");
+
   useFrame((state, delta) => {
     reference.current.rotation.y += 0.01;
+    reference.current.rotation.z += hovered ? 0.05 : 0;
   });
 
   // useMemo(() => {
@@ -23,5 +26,16 @@ export function Lamborghini(props) {
   //     console.log(node);
   //   });
   // }, [nodes, materials]);
-  return <primitive ref={reference} object={scene} {...props} />;
+  return (
+    <primitive
+      ref={reference}
+      object={sc.scene}
+      position={[0, 2, 0]}
+      scale={hovered ? 15 : 10}
+      onClick={(event) => setActive(!active)}
+      onPointerOver={(event) => setHover(true)}
+      onPointerOut={(event) => setHover(false)}
+      {...props}
+    />
+  );
 }
