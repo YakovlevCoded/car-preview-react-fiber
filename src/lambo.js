@@ -13,11 +13,10 @@ export function Lamborghini(props) {
   const reference = useRef();
   const [active, setActive] = useState(false);
   const [hovered, setHover] = useState(false);
-  const sc = useGLTF("/2.glb");
+  const sc = useGLTF("/bmw_f22_eurofighter.glb");
 
   useFrame((state, delta) => {
     reference.current.rotation.y += 0.01;
-    reference.current.rotation.z += hovered ? 0.05 : 0;
   });
 
   // useMemo(() => {
@@ -30,8 +29,8 @@ export function Lamborghini(props) {
     <primitive
       ref={reference}
       object={sc.scene}
-      position={[0, 2, 0]}
-      scale={hovered ? 15 : 10}
+      position={[0, -0.5, 0]}
+      scale={hovered ? 2 : 1.5}
       onClick={(event) => setActive(!active)}
       onPointerOver={(event) => setHover(true)}
       onPointerOut={(event) => setHover(false)}

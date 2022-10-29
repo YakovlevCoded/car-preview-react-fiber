@@ -50,7 +50,7 @@ createRoot(document.getElementById("root")).render(
     <Canvas
       gl={{ logarithmicDepthBuffer: true, antialias: false }}
       dpr={[1, 1.5]}
-      // camera={{ position: [0, 0, 15], fov: 25 }}
+      camera={{ position: [0, 5, 10] }}
     >
       <Stats />
       <color attach="background" args={["#15151a"]} />
