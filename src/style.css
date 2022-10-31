@@ -10,3 +10,14 @@ body,
     margin: 0;
     overflow: hidden;
 }
+
+.content {
+    padding-left: 10px;
+    padding-right: 10px;
+    position: absolute;
+    left: 50%;
+    top: 5%;
+    color: #fff;
+    z-index: 1;
+    transform: translateX(-50%);
+}
