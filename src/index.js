@@ -8,41 +8,22 @@ import {
   Lightformer,
   ContactShadows,
   Stats,
-  Text3D,
   Text,
+  PivotControls,
 } from "@react-three/drei";
-import { Lamborghini, BMW, Gallardo, Taro } from "./models";
+import { Model } from "./models";
 import { Effects } from "./effects";
 
 function Box(props) {
   // This reference will give us direct access to the mesh
   const mesh = useRef();
-  // Set up state for the hovered and active state
-  const [hovered, setHover] = useState(false);
-  const [active, setActive] = useState(false);
   // Subscribe this component to the render-loop, rotate the mesh every frame
   useFrame((state, delta) => (mesh.current.rotation.x += 0.01));
   // Return view, these are regular three.js elements expressed in JSX
   return (
-    <mesh
-      {...props}
-      ref={mesh}
-      scale={active ? 1.5 : 1}
-      onClick={(event) => setActive(!active)}
-      onPointerOver={(event) => setHover(true)}
-      onPointerOut={(event) => setHover(false)}
-    >
-      {/* bad practise, we need to change mesh, not a geometry, by perfomance reason */}
-      {hovered ? (
-        <boxGeometry args={[2, 2, 2]} />
-      ) : (
-        <sphereGeometry args={[1, 8, 8]} />
-      )}
-
-      <meshStandardMaterial
-        color={hovered ? "hotpink" : "orange"}
-        wireframe={hovered ? null : true}
-      />
+    <mesh {...props} ref={mesh}>
+      <sphereGeometry args={[1, 8, 8]} />
+      <meshStandardMaterial color={"orange"} wireframe={true} />
     </mesh>
   );
 }
@@ -63,6 +44,31 @@ function Select(props) {
 
 function App(props) {
   const [model, setModel] = useState("gallardo");
+
+  const map = {
+    bmw: {
+      url: "/bmw_f22_eurofighter.glb",
+      scale: 1.5,
+      position: [0, -0.5, 0],
+    },
+    lambo: {
+      url: "/lambo.glb",
+      scale: 0.015,
+      position: [0, 0, 0],
+    },
+    gallardo: {
+      url: "/lamborghini_gallardo_superleggera.glb",
+      scale: 0.4,
+      position: [0, -1.2, 0],
+    },
+    card: {
+      url: "/2.glb",
+      scale: 10,
+      position: [0, 1.5, 0],
+      rotation: [1.5, 0, 0],
+    },
+  };
+
   return (
     <>
       <Select
@@ -80,8 +86,13 @@ function App(props) {
         <Stats />
         <color attach="background" args={["#15151a"]} />
         <hemisphereLight intensity={0.5} />
-        <Box position={[-1, 3, 0]} />
-        <Box position={[1.2, 3, 0]} />
+        <Box position={[-6, 0, 0]} />
+        <Box position={[6.2, 0, 0]} />
+        <Box position={[-8, 2, 0]} />
+        <Box position={[8.2, 2, 0]} />
+        <Box position={[-6, 4, 0]} />
+        <Box position={[6.2, 4, 0]} />
+
         <mesh
           scale={4}
           position={[3, -1.161, -1.5]}
@@ -111,11 +122,14 @@ function App(props) {
             </Text>
           }
         >
-          {model === "lambo" ? <Lamborghini /> : null}
-          {model === "bmw" ? <BMW /> : null}
-          {model === "gallardo" ? <Gallardo /> : null}
-          {model === "card" ? <Taro /> : null}
+          <Model
+            url={map[model].url}
+            position={map[model].position}
+            scale={map[model].scale}
+            rotation={map[model].rotation}
+          />
         </Suspense>
+
         <ContactShadows
           resolution={1024}
           position={[0, -1.16, 0]}
