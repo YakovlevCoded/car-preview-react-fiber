@@ -97,12 +97,10 @@ function App(props) {
           <meshStandardMaterial color="white" roughness={0.75} />
         </mesh>
         {/* We need to rerender full component when state change */}
-        <Suspense fallback={<Box />}>
-          {model === "lambo" ? <Lamborghini /> : null}
-          {model === "bmw" ? <BMW /> : null}
-          {model === "gallardo" ? <Gallardo /> : null}
-          {model === "card" ? <Taro /> : null}
-        </Suspense>
+        {model === "lambo" ? <Lamborghini /> : null}
+        {model === "bmw" ? <BMW /> : null}
+        {model === "gallardo" ? <Gallardo /> : null}
+        {model === "card" ? <Taro /> : null}
         <ContactShadows
           resolution={1024}
           position={[0, -1.16, 0]}
