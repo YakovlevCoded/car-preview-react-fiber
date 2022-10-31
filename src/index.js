@@ -62,7 +62,7 @@ function Select(props) {
 }
 
 function App(props) {
-  const [model, setModel] = useState("bmw");
+  const [model, setModel] = useState("gallardo");
   return (
     <>
       <Select
