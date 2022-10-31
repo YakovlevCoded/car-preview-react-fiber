@@ -9,7 +9,7 @@ import {
   ContactShadows,
   Stats,
 } from "@react-three/drei";
-import { Lamborghini } from "./lambo";
+import { Lamborghini, BMW, Gallardo, Taro } from "./models";
 import { Effects } from "./effects";
 
 function Box(props) {
@@ -96,7 +96,13 @@ function App(props) {
           <ringGeometry args={[0.9, 1, 3, 1]} />
           <meshStandardMaterial color="white" roughness={0.75} />
         </mesh>
-        <Lamborghini value={model} />
+        {/* We need to rerender full component when state change */}
+        <Suspense fallback={<Box />}>
+          {model === "lambo" ? <Lamborghini /> : null}
+          {model === "bmw" ? <BMW /> : null}
+          {model === "gallardo" ? <Gallardo /> : null}
+          {model === "card" ? <Taro /> : null}
+        </Suspense>
         <ContactShadows
           resolution={1024}
           position={[0, -1.16, 0]}
