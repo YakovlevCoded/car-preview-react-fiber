@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { useMemo, useRef, useState } from "react";
 import { applyProps, useFrame } from "@react-three/fiber";
-import { useGLTF } from "@react-three/drei";
+import { useGLTF, useProgress } from "@react-three/drei";
 
 /*
 Author: Steven Grey (https://sketchfab.com/Steven007)
@@ -13,7 +13,7 @@ export function Lamborghini() {
   const reference = useRef();
 
   const { scene } = useGLTF("/lambo.glb");
-  console.log(scene);
+  scene.visible = true;
 
   useFrame((state, delta) => {
     reference.current.rotation.y += 0.01;
@@ -21,6 +21,7 @@ export function Lamborghini() {
 
   return (
     <primitive
+      key={Math.random()}
       ref={reference}
       object={scene}
       position={[0, 0, 0]}
@@ -34,8 +35,7 @@ export function BMW() {
 
   const model = useGLTF("/bmw_f22_eurofighter.glb");
   const { scene } = model;
-
-  console.log(model);
+  scene.visible = true;
 
   useFrame((state, delta) => {
     reference.current.rotation.y += 0.01;
@@ -56,6 +56,7 @@ export function Gallardo() {
   const reference = useRef();
 
   const { scene } = useGLTF("/lamborghini_gallardo_superleggera.glb");
+  scene.visible = true;
 
   useFrame((state, delta) => {
     reference.current.rotation.y += 0.01;
@@ -76,6 +77,7 @@ export function Taro() {
 
   const model = useGLTF("/2.glb");
   const { scene } = model;
+  scene.visible = true;
 
   useFrame((state, delta) => {
     reference.current.rotation.y += 0.01;
