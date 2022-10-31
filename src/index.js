@@ -8,6 +8,8 @@ import {
   Lightformer,
   ContactShadows,
   Stats,
+  Text3D,
+  Text,
 } from "@react-three/drei";
 import { Lamborghini, BMW, Gallardo, Taro } from "./models";
 import { Effects } from "./effects";
@@ -96,11 +98,24 @@ function App(props) {
           <ringGeometry args={[0.9, 1, 3, 1]} />
           <meshStandardMaterial color="white" roughness={0.75} />
         </mesh>
-        {/* We need to rerender full component when state change */}
-        {model === "lambo" ? <Lamborghini /> : null}
-        {model === "bmw" ? <BMW /> : null}
-        {model === "gallardo" ? <Gallardo /> : null}
-        {model === "card" ? <Taro /> : null}
+
+        <Suspense
+          fallback={
+            <Text
+              scale={[10, 10, 10]}
+              color="white" // default
+              anchorX="center" // default
+              anchorY="middle" // default
+            >
+              Loading...
+            </Text>
+          }
+        >
+          {model === "lambo" ? <Lamborghini /> : null}
+          {model === "bmw" ? <BMW /> : null}
+          {model === "gallardo" ? <Gallardo /> : null}
+          {model === "card" ? <Taro /> : null}
+        </Suspense>
         <ContactShadows
           resolution={1024}
           position={[0, -1.16, 0]}
