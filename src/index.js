@@ -2,7 +2,7 @@ import "./style.css";
 import { createRoot } from "react-dom/client";
 import React, { useRef, useState, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { DoubleSide } from "three";
+import { DoubleSide, MeshStandardMaterial } from "three";
 import {
   OrbitControls,
   Environment,
@@ -120,6 +120,7 @@ function App(props) {
               anchorY="middle"
             >
               Loading...
+              <meshNormalMaterial />
             </Text>
           }
         >
