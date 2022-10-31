@@ -2,6 +2,7 @@ import "./style.css";
 import { createRoot } from "react-dom/client";
 import React, { useRef, useState, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
+import { DoubleSide } from "three";
 import {
   OrbitControls,
   Environment,
@@ -18,12 +19,12 @@ function Box(props) {
   // This reference will give us direct access to the mesh
   const mesh = useRef();
   // Subscribe this component to the render-loop, rotate the mesh every frame
-  useFrame((state, delta) => (mesh.current.rotation.x += 0.01));
+  useFrame((state, delta) => (mesh.current.rotation.y += 0.01));
   // Return view, these are regular three.js elements expressed in JSX
   return (
-    <mesh {...props} ref={mesh}>
-      <sphereGeometry args={[1, 8, 8]} />
-      <meshStandardMaterial color={"orange"} wireframe={true} />
+    <mesh ref={mesh} scale={1} {...props}>
+      <ringGeometry args={[0.9, 1, 4, 1]} />
+      <meshStandardMaterial color="white" roughness={0.75} side={DoubleSide} />
     </mesh>
   );
 }
@@ -86,12 +87,12 @@ function App(props) {
         <Stats />
         <color attach="background" args={["#15151a"]} />
         <hemisphereLight intensity={0.5} />
-        <Box position={[-6, 0, 0]} />
-        <Box position={[6.2, 0, 0]} />
-        <Box position={[-8, 2, 0]} />
-        <Box position={[8.2, 2, 0]} />
-        <Box position={[-6, 4, 0]} />
-        <Box position={[6.2, 4, 0]} />
+        <Box position={[6, 2, 2]} />
+        <Box position={[6, 4, 3]} />
+        <Box position={[6, 6, 4]} />
+        <Box position={[-6, 2, -2]} />
+        <Box position={[-6, 4, -3]} />
+        <Box position={[-6, 6, -4]} />
 
         <mesh
           scale={4}
@@ -114,9 +115,9 @@ function App(props) {
           fallback={
             <Text
               scale={[10, 10, 10]}
-              color="white" // default
-              anchorX="center" // default
-              anchorY="middle" // default
+              color="white"
+              anchorX="center"
+              anchorY="middle"
             >
               Loading...
             </Text>
@@ -133,7 +134,7 @@ function App(props) {
         <ContactShadows
           resolution={1024}
           position={[0, -1.16, 0]}
-          scale={15}
+          scale={20}
           blur={0.5}
           opacity={1}
           far={20}
@@ -207,8 +208,8 @@ function App(props) {
         </Environment>
         <Effects />
         <OrbitControls
-        // minPolarAngle={Math.PI / 2.2}
-        // maxPolarAngle={Math.PI / 2.2}
+          minPolarAngle={Math.PI / 2.2}
+          maxPolarAngle={Math.PI / 2.2}
         />
       </Canvas>
     </>
